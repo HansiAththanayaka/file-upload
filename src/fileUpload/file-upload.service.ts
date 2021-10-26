@@ -4,7 +4,7 @@ import {
   Process,
   Processor,
 } from '@nestjs/bull';
-import { Injectable, Logger } from '@nestjs/common';
+import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
 import { Job } from 'bull';
 import * as Excel from 'exceljs';
 import { createStudentDTO } from '../entities/create.student.input';
@@ -77,6 +77,7 @@ export class FileUploadService {
 
       this.logger.debug('Transcoding completed');
     } catch (error) {
+      throw new ForbiddenException();
       this.logger.debug('Transcoding Failed', error);
     }
     this.logger.debug('Transcoding completed');

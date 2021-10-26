@@ -15,8 +15,9 @@ export class FileUploadController {
   ) {}
 
   @Post('student')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('file')) //to upload file
   async transcode(@UploadedFile() file: Express.Multer.File) {
+    //to extract file from http request
     //using multer file form data can pass as raw data that means multer can handle that uploaded file
     const job = await this.dbfileUploadQueue.add('bulk', {
       file,
